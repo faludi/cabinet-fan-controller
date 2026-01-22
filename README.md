@@ -1,0 +1,1 @@
+Fan controller for equipment cabinet, with WiFi interface for setting temperature threshold and monitoring cooling. Uses a Raspberry Pi Pico 2 W microcontroller, Sparkfun's Qwiic BME280 with the fan controlled by a MOSFET using a separate 12V supply.
