@@ -13,7 +13,7 @@ temperature_threshold = 32  # Celsius
 ssid = secrets.WIFI_SSID  # your SSID name stored in secrets.py
 password = secrets.WIFI_PASSWORD  # your WiFi password stored in secrets.py
 
-version = "1.0"
+version = "1.1"
 print("Cabinet Fan Controller - Version:", version)
 
 status_led = Pin("LED", Pin.OUT)
