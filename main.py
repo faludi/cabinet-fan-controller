@@ -17,7 +17,7 @@ version = "1.0"
 print("Cabinet Fan Controller - Version:", version)
 
 status_led = Pin("LED", Pin.OUT)
-fan_pin = Pin(15, Pin.OUT)
+fan_pin = Pin(20, Pin.OUT)
 
 terminateThread = False
 
