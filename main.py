@@ -8,12 +8,14 @@ import _thread
 import asyncio
 import gc
 
+time.sleep(2) # allow usb connection on startup
+
 temperature_threshold = 32  # Celsius
 
 ssid = secrets.WIFI_SSID  # your SSID name stored in secrets.py
 password = secrets.WIFI_PASSWORD  # your WiFi password stored in secrets.py
 
-version = "1.1"
+version = "1.2"
 print("Cabinet Fan Controller - Version:", version)
 
 status_led = Pin("LED", Pin.OUT)
@@ -59,7 +61,7 @@ def webpage():
             <h1>Cabinet Fan Controller</h1>
             <h2>Status</h2>
             <p>Current Temperature: {get_temperature(sensor)} &deg;C</p>
-            <p>Fan state: {"ON" if fan_pin.value() == 0 else "OFF"}</p>
+            <p>Fan state: {"ON" if fan_pin.value() == 1 else "OFF"}</p>
             <form action="/">
                 <input type="submit" value="Refresh" />
             </form>
@@ -78,9 +80,9 @@ def webpage():
 
 def fan(state):
     if state:
-        fan_pin.off()
-    else:
         fan_pin.on()
+    else:
+        fan_pin.off()
 
 def blink_led(pin, times, interval):
     for _ in range(times):
