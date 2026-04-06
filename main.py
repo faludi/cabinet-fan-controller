@@ -1,4 +1,4 @@
-from machine import Pin, reset
+from machine import Pin, reset, WDT
 import time
 import qwiic_bme280
 import network
@@ -15,8 +15,10 @@ temperature_threshold = 32  # Celsius
 ssid = secrets.WIFI_SSID  # your SSID name stored in secrets.py
 password = secrets.WIFI_PASSWORD  # your WiFi password stored in secrets.py
 
-version = "1.2"
+version = "1.2.1"
 print("Cabinet Fan Controller - Version:", version)
+
+wdt = WDT(timeout=8388)  # enable watchdog timer - max timeout
 
 status_led = Pin("LED", Pin.OUT)
 fan_pin = Pin(20, Pin.OUT)
@@ -51,8 +53,10 @@ def webpage():
     global temperature_value
     html = f"""
         <!DOCTYPE html>
+        <html lang="en">
         <html>
         <head>
+            <meta charset="utf-8">
             <title>Cabinet Fan Controller</title>
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <meta http-equiv="refresh" content="30">
@@ -127,7 +131,8 @@ def manage_fan():
                 fan(False)
                 blink_led(status_led, 1, 1.0)  # Slow blink
                 print("Fan OFF")
-            time.sleep(10)  # Wait before next reading
+            wdt.feed()  # Feed the watchdog timer
+            time.sleep(5)  # Wait before next reading
         print("Fan management thread terminated")
 
 async def main():
