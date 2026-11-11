@@ -15,7 +15,7 @@ temperature_threshold = 32  # Celsius
 ssid = secrets.WIFI_SSID  # your SSID name stored in secrets.py
 password = secrets.WIFI_PASSWORD  # your WiFi password stored in secrets.py
 
-version = "1.2.1"
+version = "1.2.2"
 print("Cabinet Fan Controller - Version:", version)
 
 wdt = WDT(timeout=8388)  # enable watchdog timer - max timeout
@@ -169,6 +169,7 @@ async def main():
             break # exit if no connection
 
         try:
+            gc.collect()  # Collect garbage to free up memory
             conn, addr = s.accept()
             print('Got a connection from', addr)
             
