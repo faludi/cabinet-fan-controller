@@ -28,6 +28,7 @@ terminateThread = False
 def connect_to_wifi():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
+    # wlan.config(pm = 0xa11140) # Disable power-saving for WiFi
     # Connect to network
     wlan.connect(ssid, password)
     connection_timeout = 10
